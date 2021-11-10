@@ -79,4 +79,14 @@ contract NaiHaiCoOpt {
         _price   = oceanContract[_oceanId].lastPrice;
         _time    = oceanContract[_oceanId].lastTransTime;
     }
+
+    // 還是需要有個 function 讓你把錢從合約取出來
+    function withdraw(address payable _addr, uint256 _amount) external {
+        require(msg.sender == contractOwner, "ERROR: permission denied!");
+        require(_amount <= address(this).balance, "ERROR: balance is not enough!");
+        _addr.transfer(_amount);
+    }
 }
+
+
+// Online ABI Encoding: https://abi.hashex.org/
